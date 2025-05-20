@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fef2f2;
+  --foreground: #fef2f2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-gothampro: var(--font-gothampro);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fef2f2;
+    --foreground: #fef2f2;
+  }
+}
+/* 
+body {
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+} */
+
+@font-face {
+  font-family: "Gotham-light";
+  src: url("./fonts/gothampro_light.ttf");
+}
+
+@font-face {
+  font-family: "Gotham-normal";
+  src: url("./fonts/gothampro.ttf");
+}
+
+@font-face {
+  font-family: "Gotham-bold";
+  src: url("./fonts/gothampro_bold.ttf");
+}
+
+::-webkit-scrollbar{
+  width: 15px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #873D3D;
+  border-radius: 100px;
+  border: 3px solid #ffffff;
+}
+
+
+.slick-dots {
+  position: static;
+}
+
+/* .display-none-1st-img-on-hover:not(:hover) img:nth-child(2) {
+  display: none;
+}
+
+.display-none-1st-img-on-hover:hover img:nth-child(1) {
+  display: none;
+} */
