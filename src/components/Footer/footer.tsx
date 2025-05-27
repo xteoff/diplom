@@ -15,7 +15,11 @@ const links = [
       text: "Акции",
   },
   {
-      href: "/enter",
+      href: "/register",
+      text: "Регистрация",
+  },
+  {
+      href: "/login",
       text: "Вход",
   },
   {
@@ -60,7 +64,7 @@ function Footer() {
     <footer className="flex gap-3 flex-col justify-center items-center bg-[rgb(217,217,217)] h-72 px-20">
         <div>
           <div className="font-medium text-lg">
-            Подписаться на рассылку:
+            Подписаться на информационную рассылку:
           </div>
           <div className="flex flex-col md:flex-row gap-4"> 
             <input type="email" className="p-4 w-96 bg-white border border-solid border-black rounded-lg" placeholder="Электронный адрес" />

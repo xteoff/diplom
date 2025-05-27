@@ -15,24 +15,30 @@ datasource db {
 }
 
 model User{
-  id String @unique @id @default(uuid()) @db.Uuid
-  name String
-  email String @unique
-  phone Int @unique
-  password String
-  role String @default("user")
-  Order Order[]
+  id        String @unique @id @default(uuid()) @db.Uuid
+  name      String
+  email     String @unique
+  password  String
+  role      Role @default(USER)
+  // Order Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN 
 }
 
 model Product{
-  id String @unique @id @default(uuid()) @db.Uuid
-  name String
-  price Int
+  id          String @unique @id @default(uuid()) @db.Uuid
+  name        String
+  description String
+  price       Float
 }
 
-model Order{
-  id String @unique @id @default(uuid()) @db.Uuid
-  userID String @db.Uuid
-  user User @relation(fields: [userID], references: [id])
-}
-
+// model Order{
+//   id String @unique @id @default(uuid()) @db.Uuid
+//   userID String @db.Uuid
+//   user User @relation(fields: [userID], references: [id])
+// }
