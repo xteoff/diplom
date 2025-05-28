@@ -15,16 +15,12 @@ const links = [
       text: "Акции",
   },
   {
-      href: "/register",
-      text: "Регистрация",
+      href: "/shopping_card",
+      text: "Корзина",
   },
   {
       href: "/login",
       text: "Вход",
-  },
-  {
-      href: "/shopping_card",
-      text: "Корзина",
   },
 ];
 
