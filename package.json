@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && next build",
-    "vercel-build": "powershell -File vercel-build.ps1",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "vercel-build": "bash vercel-build.sh",
+    "postinstall": "prisma generate",
+    "build": "next build",
+    "build:win": "npx prisma generate && next build"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
