@@ -3,7 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header/header";
 import localFont from 'next/font/local'
 import Footer from "@/components/Footer/footer";
-import { Providers } from './providers'
+import { Providers } from './providers/providers'
 import { cookies } from 'next/headers'
 
 const gothampro = localFont({
