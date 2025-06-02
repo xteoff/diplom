@@ -1,28 +1,11 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './node_modules/slick-carousel/**/*.js'
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        "Normal": ["Gotham-normal"],
-        "Bold": ["Gotham-bold"],
-        "Light": ["Gotham-light"],
-      },
-      colors: {
-        "Blue": "#407BFF",
-        "Gray": "#888888",
-        "Gray2": "#616161",
-        "Gray3": "#5A7184",
-        "Trans76": "#FFFFFF76",
-        "Trans20": "#00000020",
-        "BgWhite": "#F9F9FA"
-      },
-    },
+    extend: {},
   },
   plugins: [],
-};
-export default config;
+}
