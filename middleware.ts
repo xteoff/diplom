@@ -50,11 +50,11 @@ export async function middleware(request: NextRequest) {
 
     // Редиректы для административных путей
     if (isAdminPath) {
-      if (!isAuthenticated) {
-        return NextResponse.redirect(
-          new URL(`/auth/login?callback=${encodeURIComponent(path)}`, request.url)
-        )
-      }
+      // if (!isAuthenticated) {
+      //   return NextResponse.redirect(
+      //     new URL(`/auth/login?callback=${encodeURIComponent(path)}`, request.url)
+      //   )
+      // }
       
       if (!isAdmin) {
         return NextResponse.redirect(new URL('/403', request.url))
