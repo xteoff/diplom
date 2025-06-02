@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.9.1",
-    "@next/font": "^14.2.15",
     "@prisma/client": "^6.8.2",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.6",
@@ -29,7 +28,6 @@
     "next": "^15.3.3",
     "next-auth": "^4.24.11",
     "next-client-cookies": "^2.1.0",
-    "postcss": "^8.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
@@ -38,16 +36,18 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.6",
+    "@tailwindcss/postcss": "^4.1.8",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19",
     "@types/react-slick": "^0.23.13",
     "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.4.21",
     "gh-pages": "^6.3.0",
+    "postcss": "^8.5.4",
     "prisma": "^6.8.2",
-    "tailwindcss": "^4.1.6",
+    "tailwindcss": "^4.1.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "uuid": "^11.1.0"
