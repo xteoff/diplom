@@ -4,19 +4,23 @@ import prisma from '../../../lib/prisma'
 
 export async function POST(request: Request) {
   try {
-    const { email, password, name } = await request.json()
-    console.log('Registration attempt:', { email, name })
+    const formData = await request.formData();
+
+    // Извлекаем данные из formData
+    const name = formData.get("name")?.toString();
+    const email = formData.get("email")?.toString();
+    const password = formData.get("password")?.toString();
+
+    console.log('Received data:', { name, email, password });
 
     // Валидация
-    if (!email || !password) {
-      console.error('Validation failed: Email or password missing')
+    if (!name || !email || !password) {
       return NextResponse.json(
-        { message: 'Email и пароль обязательны' },
+        { message: 'Все поля обязательны для заполнения' },
         { status: 400 }
-      )
+      );
     }
 
-    // Проверка email
     const existingUser = await prisma.user.findUnique({ where: { email } })
     if (existingUser) {
       console.error('User already exists:', email)
@@ -30,20 +34,19 @@ export async function POST(request: Request) {
     const hashedPassword = await bcrypt.hash(password, 12)
     const user = await prisma.user.create({
       data: {
-        email,
         name,
-        password: hashedPassword
+        email,
+        password: hashedPassword,
       }
-    })
+    });
 
-    console.log('User created:', user.id)
-    return NextResponse.json(user, { status: 201 })
+    return NextResponse.json(user, { status: 201 });
 
   } catch (error) {
-    console.error('Full registration error:', error)
+    console.error('Error:', error);
     return NextResponse.json(
-      { message: 'Ошибка при регистрации. Проверьте введенные данные.' },
+      { message: 'Ошибка при создании пользователя' },
       { status: 500 }
-    )
+    );
   }
 }

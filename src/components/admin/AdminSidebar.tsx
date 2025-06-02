@@ -8,7 +8,8 @@ export default function AdminSidebar() {
   const navItems = [
     { href: '/admin/statistic', label: 'Статистика', icon: '📊' },
     { href: '/admin/users', label: 'Пользователи', icon: '👥' },
-    { href: '/admin/posts', label: 'Товары', icon: '📝' },
+    { href: '/admin/collection', label: 'Коллекции', icon: '📄' },
+    { href: '/admin/products', label: 'Товары', icon: '📝' },
   ]
 
   return (

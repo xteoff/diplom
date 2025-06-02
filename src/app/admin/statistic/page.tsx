@@ -4,9 +4,7 @@ import prisma from '../../lib/prisma'
 export default async function AdminDashboard() {
   const userCount = await prisma.user.count()
   const productCount = await prisma.product.count()
-//   const publishedPostCount = await prisma.post.count({
-//     where: { published: true },
-//   })
+  const collectionCount = await prisma.collection.count()
 
   return (
     <div className='flex flex-col gap-6'>
@@ -18,14 +16,10 @@ export default async function AdminDashboard() {
           <img src="/close.svg" width={32} height={32} alt="Close" />
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <StatCard title="Кол-во пользователей" value={userCount} icon="👥" />
+        <StatCard title="Кол-во коллекций" value={collectionCount} icon="📄" />
         <StatCard title="Кол-во товаров" value={productCount} icon="📝" />
-        {/* <StatCard
-          title="Published Posts"
-          value={publishedPostCount}
-          icon="✅"
-        /> */}
       </div>
     </div>
   )

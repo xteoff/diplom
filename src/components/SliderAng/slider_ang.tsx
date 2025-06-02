@@ -28,42 +28,6 @@ function SamplePrevArrow(props: any) {
 
 
 function SliderAng(){
-    // const settings = {
-
-        // className: "container mx-auto",
-
-        // responsive: [
-        //     {
-        //       breakpoint: 1024,
-        //       settings: {
-        //         slidesToShow: 3,
-        //         slidesToScroll: 3,
-        //         infinite: true,
-        //         dots: true
-        //       }
-        //     },
-        //     {
-        //       breakpoint: 800,
-        //       settings: {
-        //         slidesToShow: 2,
-        //         slidesToScroll: 2,
-        //         initialSlide: 2,
-        //         infinite: true,
-        //         dots: true
-        //       }
-        //     },
-        //     {
-        //       breakpoint: 480,
-        //       settings: {
-        //         slidesToShow: 1,
-        //         slidesToScroll: 1,
-        //         infinite: true,
-        //         dots: true
-        //       }
-        //     }
-        // ]
-    // };
-
       const settings = {
         dots: true,
         nextArrow: <SampleNextArrow />,
@@ -74,10 +38,19 @@ function SliderAng(){
         slidesToScroll: 1,
         responsive: [
             {
-              breakpoint: 1024,
+              breakpoint: 1500,
               settings: {
-                slidesToShow: 5,
-                slidesToScroll: 3,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
                 infinite: true,
                 dots: true
               }
@@ -85,22 +58,13 @@ function SliderAng(){
             {
               breakpoint: 800,
               settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
+                slidesToShow: 1,
+                slidesToScroll: 1,
                 initialSlide: 2,
                 infinite: true,
                 dots: true
               }
             },
-            {
-              breakpoint: 480,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: true,
-                dots: true
-              }
-            }
         ]
         // centerMode: true,  // Включает центрирование слайда
         // centerPadding: '0', // Убирает отступы по бокам
