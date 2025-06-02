@@ -1,12 +1,20 @@
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.ts
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  webpack: (config: any, { isServer }: { isServer: boolean }) => {
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push('@prisma/client');
+    }
+    return config;
+  },
   typescript: {
-    ignoreBuildErrors: true, // Игнорировать ошибки TypeScript при сборке
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, // Также можно игнорировать ошибки ESLint
+    ignoreDuringBuilds: true,
   },
-}
+};
 
-module.exports = nextConfig
+export default nextConfig;
