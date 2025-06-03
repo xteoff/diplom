@@ -15,7 +15,7 @@ const links = [
     text: "Акции",
   },
   {
-    href: "/shopping_card",
+    href: "/cart",
     text: "Корзина",
   },
   {

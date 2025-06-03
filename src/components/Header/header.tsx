@@ -36,13 +36,13 @@ function Header() {
     return (
         <header className="flex flex-row sm:justify-between items-center bg-red-100 font-Light h-24 px-5 md:px-20">
             <div className="w-10 flex-initial">
-                <Link href="/shopping_card">
+                <Link href="/cart">
                     {cartSvg}
                 </Link>
             </div>
 
             <nav className="flex gap-6 sm:gap-14 text-sm sm:text-lg px-3 text-black ">
-                <Link href="/collections">
+                <Link href="/shop">
                     <p className="hover:text-gray-600 hover:underline underline-offset-2 font-gothampro">Коллекции</p>
                 </Link>
                 <Link href="/">

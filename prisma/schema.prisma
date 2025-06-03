@@ -41,6 +41,7 @@ model Product {
   name         String
   description  String
   price        Float
+  image String
   collectionID String      @db.Uuid
   collection   Collection  @relation(fields: [collectionID], references: [id])
   createdAt    DateTime    @default(now())
@@ -50,11 +51,11 @@ model Product {
 
 model Order {
   id          String      @id @unique @default(uuid()) @db.Uuid
-  user        User        @relation(fields: [userId], references: [id])
-  userId      String      @db.Uuid
-  items       OrderItem[]
-  total       Float
-  status      String      @default("pending")
+  user        User        @relation(fields: [userID], references: [id])
+  userID      String      @db.Uuid
+  orderItems  OrderItem[]
+  adress      String
+  status      Int         @default(0)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 }
@@ -63,6 +64,7 @@ model OrderItem {
   id        String   @id @unique @default(uuid()) @db.Uuid
   order     Order    @relation(fields: [orderId], references: [id])
   orderId   String   @db.Uuid
+  amount    Int
   product   Product  @relation(fields: [productId], references: [id])
   productId String   @db.Uuid
   quantity  Int
