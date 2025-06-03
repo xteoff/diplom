@@ -1,4 +1,3 @@
-import { Product } from "@prisma/client";
 import CartList from "./components/cart-list";
 
 export default async function CartPage() {

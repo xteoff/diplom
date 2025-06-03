@@ -1,6 +1,5 @@
 "use client";
 import { store } from "@/store/store";
-import { Collection, Product } from "@prisma/client";
 import { useState } from "react";
 import { Provider } from "react-redux";
 import CollectionItem, { CollectionExtended } from "./collection";

@@ -1,7 +1,7 @@
 "use client";
 import { formatter } from "@/app/lib/formatter";
+import { Product } from "@/generated/prisma";
 import { addProduct} from "@/store/slices/cart";
-import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent } from "react";

@@ -1,4 +1,3 @@
-import { Product } from "@prisma/client";
 import { getCollections, getProducts } from "./actions";
 import ShopList from "./components/shop-list";
 import { CollectionExtended } from "./components/collection";

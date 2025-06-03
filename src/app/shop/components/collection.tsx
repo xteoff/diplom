@@ -1,5 +1,5 @@
 import Card from "@/components/Card/card";
-import { Collection, Product } from "@prisma/client";
+import { Collection, Product } from "@/generated/prisma";
 
 export interface CollectionExtended extends Collection {
   products: Product[];

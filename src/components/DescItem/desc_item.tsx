@@ -1,12 +1,11 @@
 "use client";
 import { formatter } from "@/app/lib/formatter";
 import { addProduct} from "@/store/slices/cart";
-import { Product } from "@prisma/client";
 import Image from "next/image";
-import Link from "next/link";
 import { MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from 'next/navigation';
+import { Product } from "@/generated/prisma";
 
 export default function DescCard({ product }: { product: Product }) {
     const router = useRouter();
