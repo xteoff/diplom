@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
+
 
 export interface CartProduct {
   product: Product;

@@ -1,6 +1,5 @@
 "use client";
 import { RootState, store } from "../../../store/store";
-import { Product } from "@prisma/client";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import CartCard from "./cart-card";
 import { CartProduct, setCart } from "../../../store/slices/cart";
