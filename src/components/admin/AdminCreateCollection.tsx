@@ -28,7 +28,7 @@ export default function CreateCollection() {
         })
 
         if (res.ok) {
-            router.push('/admin/statistic')
+            router.push('/admin/collection')
         } else {
             const data = await res.json()
             setError(data.message || 'Добавить коллекцию не удалось')

@@ -19,7 +19,7 @@ const links = [
     text: "Корзина",
   },
   {
-    href: "/login",
+    href: "/auth/sign-in",
     text: "Вход",
   },
 ];

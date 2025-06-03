@@ -20,7 +20,7 @@ function Dashboard() {
 
   const onLogOutHandler = async () => {
     await signOut({redirect: false});
-    router.push("/login");
+    router.push("/auth/sign-in");
     router.refresh();
   };
 
@@ -35,9 +35,6 @@ function Dashboard() {
 
   if (!session.data) {
     return (
-      // <div className="min-h-screen flex items-center justify-center">
-      //   <div className="text-red-500 text-lg">Ошибка загрузки</div>
-      // </div>
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[rgb(135,61,61)]"></div>
         <span className="sr-only">Загрузка...</span>
@@ -46,7 +43,7 @@ function Dashboard() {
   }
   
   return (
-    <div className="min-h-screen bg-red-50">
+    <div className=" bg-red-50">
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto font-Light px-5 md:px-20 lg:px-8">
           <div className="flex flex-row sm:justify-between h-16 items-center">
@@ -76,7 +73,7 @@ function Dashboard() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      {/* <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="border-4 border-dashed border-[rgb(135,61,61)] rounded-lg h-96 flex flex-col items-center justify-center gap-4">
             <h2 className="text-2xl font-semibold text-black">
@@ -86,7 +83,7 @@ function Dashboard() {
             <p className="text-gray-500">Ваша роль: {session.data.user.role}</p>
           </div>
         </div>
-      </main>
+      </main> */}
     </div>
   )
 }

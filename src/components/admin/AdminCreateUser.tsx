@@ -32,7 +32,7 @@ export default function CreateUser() {
       })
 
       if (res.ok) {
-        router.push('/admin/statistic')
+        router.push('/admin/users')
       } else {
         const data = await res.json()
         setError(data.message || 'Добавить пользователя не удалось')

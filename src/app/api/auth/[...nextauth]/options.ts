@@ -39,13 +39,13 @@ export const options: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 
-  pages: {
-    signIn: "/auth/login",
-    signOut: "/auth/logout",
-    error: "/auth/login",
-    verifyRequest: "/auth/verify",
-    newUser: "/auth/register",
-  },
+  // pages: {
+  //   signIn: "/auth/login",
+  //   signOut: "/auth/logout",
+  //   error: "/auth/login",
+  //   verifyRequest: "/auth/verify",
+  //   newUser: "/auth/register",
+  // },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

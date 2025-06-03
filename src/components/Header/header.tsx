@@ -27,7 +27,7 @@ export default function HeaderWrapped(){
 
 function Header() {
     const session = useSession()
-    let account = "/login"
+    let account = "/auth/sign-in"
 
     if (session.status == "authenticated"){
         account = "/dashboard"
@@ -58,7 +58,6 @@ function Header() {
                     {userSvg}
                 </Link>
             </div>
-            {/* {modalIsOpen && modalContent} */}
         </header>
     )
 } 

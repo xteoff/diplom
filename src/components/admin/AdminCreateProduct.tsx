@@ -69,7 +69,7 @@ export default function CreateProduct() {
       })
 
       if (res.ok) {
-        router.push('/admin/statistic')
+        router.push('/admin/products')
       } else {
         const data = await res.json()
         setError(data.message || 'Добавить товар не удалось')

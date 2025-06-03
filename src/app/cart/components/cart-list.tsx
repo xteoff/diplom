@@ -86,7 +86,7 @@ function CartListInner() {
 
       <Form
         action={onOrderHandler}
-        className="lg:max-w-[425px] w-full rounded-md border-2 border-primary-500 h-fit flex flex-col items-start gap-5 justify-center px-5 py-3"
+        className="lg:max-w-[425px] w-full border-l-2 border-primary-500 h-fit flex flex-col items-start gap-5 justify-center px-5 py-3"
       >
         <h3 className="text-2xl font-light w-full text-left">
           Корзина

@@ -17,13 +17,13 @@ function Card({ product }: { product: Product }) {
     };
     return(
         <div className="flex w-fit">
-            <Link href = "/item" className="flex flex-col justify-center items-center cursor-pointer w-60 ">
+            <Link href = "/item" className="flex flex-col justify-center items-center cursor-pointer">
                 <div className="w-full">
                     <Image
                     src={`/products/${product.id}.webp`}
-                    width={100}
-                    height={110}
-                    className="w-full rounded-t-md h-[280px]"
+                    width={1100}
+                    height={1375}
+                    className="w-full rounded-t-md h-[330px]"
                     alt={product.name}
                     />
                 </div>
