@@ -1,5 +1,4 @@
-"use server";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import { CollectionExtended } from "./components/collection";
 
 export async function getProducts(): Promise<Product[]> {
