@@ -42,7 +42,7 @@ model Product {
   name         String
   description  String
   price        Float
-  image String?
+  image String
   collectionID String      @db.Uuid
   collection   Collection  @relation(fields: [collectionID], references: [id])
   createdAt    DateTime    @default(now())
