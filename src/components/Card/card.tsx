@@ -20,7 +20,7 @@ function Card({ product }: { product: Product }) {
             <Link href = "/item" className="flex flex-col justify-center items-center cursor-pointer">
                 <div className="w-full">
                     <Image
-                    src={`/products/${product.id}.webp`}
+                    src={product.image}
                     width={1100}
                     height={1375}
                     className="w-full rounded-t-md h-[330px]"

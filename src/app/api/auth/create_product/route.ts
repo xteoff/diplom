@@ -13,9 +13,9 @@ export async function POST(request: Request) {
     const price = formData.get("price")?.toString();
     const description = formData.get("description")?.toString();
     const collectionID = formData.get("collectionID")?.toString();
-    const image = formData.get("image") as File | null;
+    const image = formData.get("image")?.toString();
 
-    console.log('Received data:', { name, price, collectionID, description, image: image?.name });
+    console.log('Received data:', { name, price, collectionID, description, image});
 
     // Валидация
     if (!name || !price || !description || !collectionID) {
@@ -29,27 +29,12 @@ export async function POST(request: Request) {
     const product = await prisma.product.create({
       data: {
         name,
-        image: '',
+        image: image?image:'',
         price: +price,
         description,
         collectionID,
       }
     });
-
-    // Обработка изображения (если есть)
-    if (image && image.size > 0) {
-      const uploadDir = `${process.cwd()}/public/products`;
-      const bytes = await image.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
-      }
-
-      const fileName = `${product.id}.webp`;
-      const filePath = path.join(uploadDir, fileName);
-      await writeFile(filePath, buffer);
-    }
 
     return NextResponse.json(product, { status: 201 });
 

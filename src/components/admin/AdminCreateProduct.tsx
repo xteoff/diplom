@@ -59,6 +59,7 @@ export default function CreateProduct() {
       formDataToSend.append('description', formData.description)
       formDataToSend.append('price', formData.price)
       formDataToSend.append('collectionID', formData.collectionID)
+      
       if (image) {
         formDataToSend.append('image', image)
       }
@@ -164,8 +165,7 @@ export default function CreateProduct() {
               <input
                 id="image"
                 name="image"
-                type="file"
-                accept='image/*'
+                type="text"
                 required
                 className="appearance-none relative block w-full px-4 py-2 border border-gray-300 rounded-lg hover::outline-none hover:ring-2 hover:ring-[rgb(135,61,61)] hover:border-transparent"
                 onChange={handleImageChange}

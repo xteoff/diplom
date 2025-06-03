@@ -19,7 +19,7 @@ export default function CartCard({ product }: { product: CartProduct }) {
   return (
     <div className="flex border-2 border-solid border-accent-500 rounded-md h-[150px] w-[320px]">
       <Image
-        src={`/products/${product.product.id}.webp`}
+        src={product.product.image}
         width={100}
         height={100}
         alt={product.product.name}
