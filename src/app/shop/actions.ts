@@ -1,37 +1,20 @@
 import { Product } from "@/generated/prisma";
 import { CollectionExtended } from "./components/collection";
 
-export async function getProducts(): Promise<Product[]> {
-  try {
-    const result = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/product`,
-      {
-        method: "GET",
-        cache: "no-store",
-      }
-    );
-    return result.json();
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-}
-
 export async function getCollections(): Promise<CollectionExtended[]> {
   try {
-    const result = await fetch(
-      `/api/collections`,
-      {
-        method: "GET",
-        cache: "no-store",
-      }
-    );
+    const result = await fetch('/api/collections', {
+      method: "GET",
+      cache: "no-store",
+    });
 
-    if (result.status !== 201) return [];
+    if (!result.ok) {
+      throw new Error(`HTTP error! status: ${result.status}`);
+    }
 
-    return result.json();
+    return await result.json();
   } catch (error) {
-    console.log(error);
-    return [];
+    console.error("Failed to fetch collections:", error);
+    throw error;
   }
 }

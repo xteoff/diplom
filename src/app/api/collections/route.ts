@@ -2,48 +2,50 @@ import { NextResponse } from 'next/server'
 import prisma from '../../lib/prisma'
 
 export async function GET(request: Request) {
-  const result = await prisma.collection.findMany({
-    select: {
-      id: true,
-      name: true,
-      products: true,
-    },
-  });
+  try {
+    const collections = await prisma.collection.findMany({
+      select: {
+        id: true,
+        name: true,
+        products: true,
+      },
+    });
 
-  if (!result) {
-    return new Response(JSON.stringify([]), {
-      status: 400,
+    return NextResponse.json(collections, {
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
+    
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch collections' },
+      { status: 500 }
+    );
   }
-
-  return new Response(JSON.stringify(result), {
-    status: 201,
-    headers: { "Content-Type": "application/json" },
-  });
 }
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData.entries());
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData.entries());
 
-  const result = await prisma.collection.create({
-    data: {
-      name: data.name.toString(),
-    },
-  });
+    const result = await prisma.collection.create({
+      data: {
+        name: data.name.toString(),
+      },
+    });
 
-  if (!result) {
-    return new Response(
-      JSON.stringify({ message: "Error while creating product" }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      }
+    return NextResponse.json(result, {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
+    
+  } catch (error) {
+    console.error('Error creating collection:', error);
+    return NextResponse.json(
+      { error: 'Error while creating collection' },
+      { status: 400 }
     );
   }
-  return new Response(JSON.stringify(result), {
-    status: 201,
-    headers: { "Content-Type": "application/json" },
-  });
 }
