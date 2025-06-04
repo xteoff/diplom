@@ -12,9 +12,9 @@ export default function CreateProduct() {
     name: '',
     description: '',
     price: '',
+    image: '',
     collectionID: ''
   })
-  const [image, setImage] = useState<File | null>(null)
   const [error, setError] = useState('')
   const [collections, setCollections] = useState<Collection[]>([])
   const [loadingCollections, setLoadingCollections] = useState(true)
@@ -34,7 +34,6 @@ export default function CreateProduct() {
         setLoadingCollections(false)
       }
     }
-    
     fetchCollections()
   }, [])
 
@@ -42,13 +41,7 @@ export default function CreateProduct() {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0])
-    }
-  }
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
@@ -59,10 +52,8 @@ export default function CreateProduct() {
       formDataToSend.append('description', formData.description)
       formDataToSend.append('price', formData.price)
       formDataToSend.append('collectionID', formData.collectionID)
+      formDataToSend.append('image', formData.image)
       
-      if (image) {
-        formDataToSend.append('image', image)
-      }
 
       const res = await fetch('/api/auth/create_product', {
         method: 'POST',
@@ -167,8 +158,9 @@ export default function CreateProduct() {
                 name="image"
                 type="text"
                 required
+                placeholder="Ссылка на картинку"
                 className="appearance-none relative block w-full px-4 py-2 border border-gray-300 rounded-lg hover::outline-none hover:ring-2 hover:ring-[rgb(135,61,61)] hover:border-transparent"
-                onChange={handleImageChange}
+                onChange={handleChange}
               />
             </div>
           </div>

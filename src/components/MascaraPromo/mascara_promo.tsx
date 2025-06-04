@@ -23,7 +23,7 @@ function MascaraPromo() {
                 </div>
                 <div>
                     <Link 
-                        href="/collections"
+                        href="/shop"
                         className="inline-block text-lg sm:text-xl border border-black rounded-full 
                                   px-4 py-2 sm:px-5 sm:py-3
                                   hover:bg-[rgb(135,61,61)] hover:border-transparent hover:text-black 

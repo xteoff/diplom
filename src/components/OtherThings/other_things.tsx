@@ -8,7 +8,7 @@ function OtherThings(){
             </div>
 
             <div className="flex flex-col gap-10">
-                <Link href="/collections">
+                <Link href="/shop">
                     <div className="flex flex-col lg:flex-row justify-center text-black lg:h-[400px] px-5 lg:px-16 scale-100 hover:scale-105">
                         <div className="w-full">
                             <img src="/pal.svg" className="w-full h-full object-cover rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl" alt="" />
@@ -23,7 +23,7 @@ function OtherThings(){
                     </div>
                 </Link>
 
-                <Link href="/collections">
+                <Link href="/shop">
                     <div className="flex flex-col lg:flex-row justify-center text-black lg:h-[400px] px-5 lg:px-16 scale-100 hover:scale-105">
                         <div className="w-full">
                              <img src="/Mascara.PNG" className="w-full h-full object-cover rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl" alt="" />

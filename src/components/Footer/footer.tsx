@@ -7,7 +7,7 @@ const links = [
     text: "Главная",
   },
   {
-    href: "/collections",
+    href: "/shop",
     text: "Коллекции",
   },
   {

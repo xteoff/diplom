@@ -56,28 +56,43 @@ function PromotionPromo(){
         </div>
     );
 
-    return(
-        <div className="relative flex justify-center items-center h-fit w-full">
-            <img src="/piccc.PNG" alt="" className="flex justify-center items-center h-fit w-full"/>
-            <div className="absolute top-14 flex gap-9 bg-cover flex-col justify-center items-center text-black py-20 px-20">
-                <div className="text-4xl text-center font-bold px-6">
+    return (
+    <div className="relative overflow-hidden">
+        <div className="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] w-full">
+            <img 
+                src="/piccc.PNG" 
+                alt="" 
+                className="w-full h-full object-cover object-center"
+            />
+        </div>
+
+        <div className="absolute top-[10%] sm:top-[15%] lg:top-[20%] left-0 w-full px-4 sm:px-10 md:px-20">
+            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 text-black items-center text-center">
+                
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center">
                     Эксклюзивная программа лояльности
                 </div>
-                <div className="flex text-2xl text-center font-ligth lg:px-24">
+                
+                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-light max-w-2xl">
                     Оформите подписку и получайте набор косметики каждый месяц. 
-                    Наполнение и количeство продуктов зависит от колличества и общей суммы ваших совершенных заказов за год. 
+                    Наполнение и количество продуктов зависит от количества и общей суммы ваших совершенных заказов за год.
                 </div>
-                <div>
-                    <button onClick={openModal}
-                    className="flex text-2xl p-4 border border-solid border-black rounded-full px-5 py-4
-                        hover:bg-[rgb(135,61,61)] hover:border-[rgb(135,61,61)] hover:ease-in-out duration-300 hover:text-black">
+                
+                <div className="mt-2 sm:mt-4 md:mt-6">
+                    <button 
+                        onClick={openModal}
+                        className="text-base sm:text-lg md:text-xl border border-black rounded-full px-5 py-2 sm:px-6 sm:py-3
+                        hover:bg-[rgb(135,61,61)] hover:border-[rgb(135,61,61)] hover:text-black 
+                        transition-all duration-300 whitespace-nowrap"
+                    >
                         Присоединиться сейчас
                     </button>
                 </div>
             </div>
-            {modalIsOpen && modalContent}
         </div>
-    )
+        {modalIsOpen && modalContent}
+    </div>
+)
 }
 
 export default PromotionPromo;

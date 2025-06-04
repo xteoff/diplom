@@ -32,7 +32,7 @@ function AngelsPromo() {
           
           <div className="mt-2 sm:mt-3 md:mt-4 w-fit">
             <Link 
-              href="/collections"
+              href="/shop"
               className="inline-block text-xl sm:text-2xl border border-white rounded-full px-5 py-2 sm:px-6 sm:py-3
               hover:bg-[rgb(135,61,61)] hover:border-transparent hover:text-black transition-all duration-300
               whitespace-nowrap"

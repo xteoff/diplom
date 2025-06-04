@@ -31,7 +31,7 @@ function GalleryCollections(){
             <div>
                 <button className="flex font-extralight text-2xl p-4 border border-solid border-black rounded-full px-5 py-3
                 hover:bg-[rgb(135,61,61)] hover:border-[rgb(135,61,61)] hover:ease-in-out duration-300 hover:text-black">
-                    <Link href="/collections">
+                    <Link href="/shop">
                         Начать покупки
                     </Link>
                 </button>
