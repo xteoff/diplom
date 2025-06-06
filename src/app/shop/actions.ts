@@ -6,7 +6,7 @@ export async function getCollections(): Promise<CollectionExtended[]> {
     const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/collections`, {
       method: "GET",
     });
-
+    console.log(result)
     if (!result.ok) {
       throw new Error(`HTTP error! status: ${result.status}`);
     }
@@ -14,6 +14,7 @@ export async function getCollections(): Promise<CollectionExtended[]> {
     return await result.json();
   } catch (error) {
     console.error("Failed to fetch collections:", error);
-    throw error;
+    // throw error;
+    return []
   }
 }
