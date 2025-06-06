@@ -17,7 +17,7 @@ export default function CartCard({ product }: { product: CartProduct }) {
   };
 
   return (
-    <div className="flex border-2 border-solid border-accent-500 rounded-md h-[150px] w-[320px]">
+    <div className="flex bg-white border-2 border-solid border-[rgb(135,61,61)] rounded-md h-[150px] w-[320px]">
       <Image
         src={product.product.image}
         width={100}
@@ -35,15 +35,15 @@ export default function CartCard({ product }: { product: CartProduct }) {
           </p>
         </div>
 
-        <div className="flex gap-3 items-center justify-self-end">
+        <div className="flex gap-3 items-center justify-self-end ">
           <DispatchButton onClick={onRemoveHandler}>
-            <p className="text-3xl font-bold">-</p>
+            <p className="text-3xl select-none ">-</p>
           </DispatchButton>
           <span className="font-inter text-center text-xl">
             {product.amount}
           </span>
           <DispatchButton onClick={onAddHandler}>
-            <p className="text-3xl font-bold">+</p>
+            <p className="text-3xl select-none">+</p>
           </DispatchButton>
         </div>
       </div>

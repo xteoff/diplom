@@ -1,10 +1,8 @@
 'use client'
 
-import { useAuth } from '@/hooks/useAuth'
 import { SessionProvider, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { redirect, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function DashboardWrapper(){
   return (
@@ -72,18 +70,6 @@ function Dashboard() {
           </div>
         </div>
       </nav>
-
-      {/* <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="border-4 border-dashed border-[rgb(135,61,61)] rounded-lg h-96 flex flex-col items-center justify-center gap-4">
-            <h2 className="text-2xl font-semibold text-black">
-              Добро пожаловать, {session.data.user.name || session.data.user.email}!
-            </h2>
-            <p className="text-gray-500">Ваш ID: {session.data.user.id}</p>
-            <p className="text-gray-500">Ваша роль: {session.data.user.role}</p>
-          </div>
-        </div>
-      </main> */}
     </div>
   )
 }

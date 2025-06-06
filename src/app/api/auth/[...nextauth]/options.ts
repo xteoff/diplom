@@ -39,32 +39,22 @@ export const options: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 
-  // pages: {
-  //   signIn: "/auth/login",
-  //   signOut: "/auth/logout",
-  //   error: "/auth/login",
-  //   verifyRequest: "/auth/verify",
-  //   newUser: "/auth/register",
-  // },
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log("user", user);
         token.name = user.name;
         token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
-      console.log("token", token);
 
       if (!token.sub || !token.name) return session;
 
       session.user.id = token.sub;
       session.user.name = token.name;
       session.user.role = token.role;
-
-      console.log("session", session);
 
       return session;
     },

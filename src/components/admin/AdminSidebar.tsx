@@ -10,6 +10,7 @@ export default function AdminSidebar() {
     { href: '/admin/users', label: 'Пользователи', icon: '👥' },
     { href: '/admin/collection', label: 'Коллекции', icon: '📄' },
     { href: '/admin/products', label: 'Товары', icon: '📝' },
+    { href: '/admin/orders', label: 'Заказы', icon: '👝' },
   ]
 
   return (

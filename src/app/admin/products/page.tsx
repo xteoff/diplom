@@ -43,9 +43,6 @@ export default async function AdminProducts() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Цена
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Действия
-              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -65,11 +62,6 @@ export default async function AdminProducts() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {product.price}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button className="text-red-600 cursor-pointer hover:text-red-900 hover:underline">
-                    Удалить
-                  </button>
                 </td>
               </tr>
             ))}

@@ -5,6 +5,7 @@ export default async function AdminDashboard() {
   const userCount = await prisma.user.count()
   const productCount = await prisma.product.count()
   const collectionCount = await prisma.collection.count()
+  const orderCount = await prisma.order.count()
 
   return (
     <div className='flex flex-col gap-6'>
@@ -20,6 +21,7 @@ export default async function AdminDashboard() {
         <StatCard title="Кол-во пользователей" value={userCount} icon="👥" />
         <StatCard title="Кол-во коллекций" value={collectionCount} icon="📄" />
         <StatCard title="Кол-во товаров" value={productCount} icon="📝" />
+        <StatCard title="Кол-во заказов" value={orderCount} icon="👝" />
       </div>
     </div>
   )

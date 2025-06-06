@@ -1,27 +1,17 @@
 import prisma from '../../lib/prisma'
 import Link from 'next/link'
 
-export default async function AdminUsers() {
-  const users = await prisma.user.findMany({
-    orderBy: { createdAt: 'desc' },
-  })
+export default async function AdminProducts() {
+  const order = await prisma.order.findMany({})
 
   return (
     <div className='flex flex-col gap-6'>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-center text-black">
-          Пользователи
+          Заказы
         </h1>
         <Link href="/dashboard" className="ml-auto block  cursor-pointer">
           <img src="/close.svg" width={32} height={32} alt="Close" />
-        </Link>
-      </div>
-      <div className='flex self-end'>
-        <Link
-          href="/admin/users/create"
-          className="bg-[rgb(135,61,61)] border border-transparent text-white px-4 py-2 rounded-lg duration-300 hover:bg-transparent hover:border-[rgb(135,61,61)] hover:text-black transition-colors"
-        >
-          Добавить пользователя
         </Link>
       </div>
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -32,30 +22,30 @@ export default async function AdminUsers() {
                 ID
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Имя
+                Пользователь
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Адрес эл. почты
+                Адрес
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Роль
+                Статус
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {users.map((user) => (
-              <tr key={user.id}>
+            {order.map((order) => (
+              <tr key={order.id}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {user.id}
+                  {order.id}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {user.name || '-'}
+                  {order.userID || '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {user.email}
+                  {order.adress}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {user.role}
+                  {order.status}
                 </td>
               </tr>
             ))}

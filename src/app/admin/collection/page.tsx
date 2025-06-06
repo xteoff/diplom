@@ -33,9 +33,6 @@ export default async function AdminCollections() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Название
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Действия
-              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -46,11 +43,6 @@ export default async function AdminCollections() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {collection.name || '-'}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button className="text-red-600 cursor-pointer hover:text-red-900 hover:underline">
-                    Удалить
-                  </button>
                 </td>
               </tr>
             ))}
