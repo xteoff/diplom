@@ -3,9 +3,8 @@ import { CollectionExtended } from "./components/collection";
 
 export async function getCollections(): Promise<CollectionExtended[]> {
   try {
-    const result = await fetch('/api/collections', {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/collections`, {
       method: "GET",
-      cache: "no-store",
     });
 
     if (!result.ok) {

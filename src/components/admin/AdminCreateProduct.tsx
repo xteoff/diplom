@@ -24,7 +24,7 @@ export default function CreateProduct() {
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await fetch('/api/auth/collections')
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/collections`)
         const data = await response.json()
         setCollections(data)
       } catch (err) {
@@ -55,7 +55,7 @@ export default function CreateProduct() {
       formDataToSend.append('image', formData.image)
       
 
-      const res = await fetch('/api/auth/create_product', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/create_product`, {
         method: 'POST',
         body: formDataToSend,
       })
