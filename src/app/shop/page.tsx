@@ -4,7 +4,7 @@ import { CollectionExtended } from "./components/collection";
 import CollectionNavigation from "./components/collection-nav";
 
 export default async function ShopPage() {
-  try {
+  // try {
     const collections = await getCollections();
 
     return (
@@ -17,13 +17,13 @@ export default async function ShopPage() {
         <ShopList collectionsInit={collections} />
       </div>
     );
-  } catch (error) {
-    return (
-      <div className="min-h-screen flex flex-col justify-center items-center gap-5 py-20 px-5 bg-red-50">
-        <p className="font-inter text-xl">
-          Произошла ошибка при загрузке товаров. Пожалуйста, попробуйте обновить страницу
-        </p>
-      </div>
-    );
-  }
+  // } catch (error) {
+  //   return (
+  //     <div className="min-h-screen flex flex-col justify-center items-center gap-5 py-20 px-5 bg-red-50">
+  //       <p className="font-inter text-xl">
+  //         Произошла ошибка при загрузке товаров. Пожалуйста, попробуйте обновить страницу
+  //       </p>
+  //     </div>
+  //   );
+  // }
 }
