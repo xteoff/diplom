@@ -65,6 +65,16 @@ function SliderAng(){
                 dots: true
               }
             },
+            {
+              breakpoint: 400,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                initialSlide: 2,
+                infinite: true,
+                dots: true
+              }
+            },
         ]
         // centerMode: true,  // Включает центрирование слайда
         // centerPadding: '0', // Убирает отступы по бокам
