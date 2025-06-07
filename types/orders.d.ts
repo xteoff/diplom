@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@/generated/prisma';
 
 export type OrderItemWithProduct = Prisma.OrderItemGetPayload<{
   include: { product: true }
@@ -45,4 +45,17 @@ export interface Invoice {
   }>;
   customerName: string;
   customerAddress: string;
+}
+
+export interface TransformedOrder extends OrderWithRelations {
+  address: string;
+  totalAmount: number;
+}
+
+export interface OrderPageParams {
+  orderId: string;
+}
+
+export interface OrderPageProps {
+  params: Promise<OrderPageParams>;
 }
