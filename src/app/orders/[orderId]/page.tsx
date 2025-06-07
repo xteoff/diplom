@@ -1,12 +1,13 @@
 // app/orders/[orderId]/page.tsx
-import { InvoiceDocument, type Invoice } from '../components/InvoiceDocument'
+'use server'
+
+import { type Invoice } from '../components/InvoiceDocument'
 import prisma from '../../lib/prisma'
 import { generateInvoice } from '../../actions/generateInvoice'
 import { Prisma } from '@/generated/prisma'
 import DownloadInvoiceWrapper from '../../../components/client/DownloadInvoiceWrapper'
 import { validate as isUUID } from 'uuid'
 
-// Генерируем статические параметры (даже пустой массив решает проблему)
 export async function generateStaticParams() {
   return []
 }
@@ -37,13 +38,13 @@ function transformInvoice(
       name: item.product.name,
       quantity: item.quantity,
       price: item.price,
-      amount: item.quantity * item.price,
+      amount: item.quantity * item.price
     })),
     customerName: user?.name || '',
     customerAddress: '',
-    date: invoice.date.toISOString(),       // Date → string
-    createdAt: invoice.createdAt.toISOString(), // Date → string
-    updatedAt: invoice.updatedAt.toISOString(), // Date → string
+    date: invoice.date.toISOString(),
+    createdAt: invoice.createdAt.toISOString(),
+    updatedAt: invoice.updatedAt.toISOString()
   }
 }
 
@@ -56,27 +57,21 @@ function getStatusText(status: number) {
   }
 }
 
-export default async function OrderPage({ 
-  params 
-}: { 
-  params: { orderId: string } 
-}) {
-  // Теперь params можно использовать синхронно благодаря generateStaticParams
-  const orderId = params.orderId
-
-  // Валидация orderId
-  if (!isUUID(orderId)) {
-    return <div className="container mx-auto p-4">Неверный ID заказа</div>
-  }
-
+export default async function OrderPage({ params }: { params: { orderId: string } }) {
   try {
+    // Новый подход - ожидаем params
+    const { orderId } = await params
+
+    if (!isUUID(orderId)) {
+      return <div className="container mx-auto p-4">Неверный ID заказа</div>
+    }
+
     const order = await getOrder(orderId)
     
     if (!order) {
       return <div className="container mx-auto p-4">Заказ не найден</div>
     }
 
-    // Генерация накладной, если ее нет
     let invoice = order.invoice
     if (!invoice) {
       try {
@@ -93,13 +88,11 @@ export default async function OrderPage({
       }
     }
 
-    // Расчет общей суммы
     const totalAmount = order.orderItems.reduce(
       (sum, item) => sum + (item.quantity * item.price), 
       0
     )
 
-    // Форматирование даты
     const formatDate = (date: Date) => 
       new Date(date).toLocaleDateString('ru-RU')
 
@@ -107,7 +100,6 @@ export default async function OrderPage({
       <div className="container mx-auto p-4 space-y-6">
         <h1 className="text-2xl font-bold">Заказ #{order.id.slice(0, 8)}</h1>
         
-        {/* Блок с деталями заказа */}
         <section className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-4">Детали заказа</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -135,7 +127,6 @@ export default async function OrderPage({
           </ul>
         </section>
         
-        {/* Блок с накладной */}
         {invoice && (
           <section className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
