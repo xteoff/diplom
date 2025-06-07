@@ -1,11 +1,9 @@
-'use client'
 import { type Invoice } from '../components/InvoiceDocument'
 import { generateInvoice } from '../../actions/generateInvoice'
 import { Prisma } from '@/generated/prisma'
 import DownloadInvoiceWrapper from '../../../components/client/DownloadInvoiceWrapper'
 import { validate as isUUID } from 'uuid'
 import { getOrder } from "../actions"
-import { useRouter } from "next/navigation";
 
 export async function generateStaticParams() {
   return []
@@ -89,7 +87,6 @@ interface OrderPageProps {
 }
 
 export default async function OrderPage({ params }: OrderPageProps) {
-  const router = useRouter();
   const { orderId } = await params
 
   // Валидация UUID
