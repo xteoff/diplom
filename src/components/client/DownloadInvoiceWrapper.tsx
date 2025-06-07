@@ -2,7 +2,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { type Invoice } from '../../app/orders/components/InvoiceDocument'
+import { type Invoice, Order } from '../../app/orders/components/InvoiceDocument'
 
 const DownloadInvoiceButton = dynamic(
   () => import('../../app/cart/components/DownloadInvoiceButton'),
@@ -11,8 +11,9 @@ const DownloadInvoiceButton = dynamic(
 
 interface DownloadInvoiceWrapperProps {
   invoice: Invoice
+  order: Order
 }
 
-export default function DownloadInvoiceWrapper({ invoice }: DownloadInvoiceWrapperProps) {
-  return <DownloadInvoiceButton invoice={invoice} />
+export default function DownloadInvoiceWrapper({ invoice, order }: DownloadInvoiceWrapperProps) {
+  return <DownloadInvoiceButton invoice={invoice} order={order} />
 }
