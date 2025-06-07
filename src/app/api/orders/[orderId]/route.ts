@@ -1,33 +1,38 @@
 import prisma from "../../../lib/prisma";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-    const orderId = (await params).id;
+  try {
+    const { id: orderId } = params;
+    
     const result = await prisma.order.findUnique({
-    where: { id: orderId },
-    include: {
-      invoice: true,
-      user: true,
-      orderItems: {
-        include: {
-          product: true
+      where: { id: orderId },
+      include: {
+        invoice: true,
+        user: true,
+        orderItems: {
+          include: {
+            product: true
+          }
         }
       }
+    });
+
+    if (!result) {
+      return NextResponse.json(
+        { message: "Order not found" },
+        { status: 404 }
+      );
     }
-  })
-  if (!result) {
-    return new Response(
-      JSON.stringify({ message: "Error while sedarching orders" }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      }
+
+    return NextResponse.json(result, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Error while searching for order", error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 }
     );
   }
-  return new Response(JSON.stringify(result), {
-    status: 201,
-    headers: { "Content-Type": "application/json" },
-  });
 }
