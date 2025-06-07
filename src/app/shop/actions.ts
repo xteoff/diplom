@@ -1,4 +1,3 @@
-import { Product } from "@/generated/prisma";
 import { CollectionExtended } from "./components/collection";
 
 export async function getCollections(): Promise<CollectionExtended[]> {
@@ -14,7 +13,6 @@ export async function getCollections(): Promise<CollectionExtended[]> {
     return await result.json();
   } catch (error) {
     console.error("Failed to fetch collections:", error);
-    // throw error;
     return []
   }
 }
