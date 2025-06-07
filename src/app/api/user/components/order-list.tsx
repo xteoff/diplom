@@ -1,3 +1,4 @@
+// components/orders-list.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -85,8 +86,11 @@ function Dashboard() {
 
 function OrdersListInner() {
   const [orders, setOrders] = useState<Prisma.OrderGetPayload<{
-              include: { orderItems: { include: { product: true } } };
-            }>[]>([]);
+    include: { 
+      orderItems: { include: { product: true } };
+      invoice: true;
+    };
+  }>[]>([]);
 
   const session = useSession();
 
@@ -94,9 +98,6 @@ function OrdersListInner() {
     (async () => {
       if (session.status !== "authenticated") return;
       const result = await getOrderCabinet(session.data?.user.id);
-
-      console.log(result);
-
       setOrders(result);
     })();
   }, [session.status]);
@@ -127,15 +128,9 @@ function OrdersListInner() {
     <div>
       <h2 className="font-bold text-2xl">Ваши заказы:</h2>
       <div className="flex flex-col gap-5">
-        {orders.map(
-          (
-            item: Prisma.OrderGetPayload<{
-              include: { orderItems: { include: { product: true } } };
-            }>
-          ) => {
-            return <OrderBlock key={item.id} order={item} />;
-          }
-        )}
+        {orders.map((item) => (
+          <OrderBlock key={item.id} order={item} />
+        ))}
       </div>
     </div>
   );

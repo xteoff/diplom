@@ -164,14 +164,37 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   price: 'price'
 };
 
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  invoiceNumber: 'invoiceNumber',
+  date: 'date',
+  customerName: 'customerName',
+  customerAddress: 'customerAddress',
+  items: 'items',
+  totalAmount: 'totalAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
@@ -183,7 +206,8 @@ exports.Prisma.ModelName = {
   Collection: 'Collection',
   Product: 'Product',
   Order: 'Order',
-  OrderItem: 'OrderItem'
+  OrderItem: 'OrderItem',
+  Invoice: 'Invoice'
 };
 
 /**

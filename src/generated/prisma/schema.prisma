@@ -59,6 +59,7 @@ model Order {
   status     Int         @default(0)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  invoice    Invoice?
 }
 
 model OrderItem {
@@ -70,4 +71,18 @@ model OrderItem {
   productId String  @db.Uuid
   quantity  Int
   price     Float
+}
+
+model Invoice {
+  id              String   @id @unique @default(uuid()) @db.Uuid
+  order           Order    @relation(fields: [orderId], references: [id])
+  orderId         String   @unique @db.Uuid
+  invoiceNumber   String   @unique
+  date            DateTime
+  customerName    String
+  customerAddress String
+  items           Json
+  totalAmount     Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
