@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 async function getOrder(orderId: string) {
   return await prisma.order.findUnique({
     where: { id: orderId },
-    include: { 
+    include: {
       invoice: true,
       user: true,
       orderItems: {
@@ -26,6 +26,7 @@ async function getOrder(orderId: string) {
 
 function transformInvoice(
   invoice: Prisma.InvoiceGetPayload<{}>,
+  order: Prisma.OrderGetPayload<{}>,
   orderItems: Prisma.OrderItemGetPayload<{ include: { product: true } }>[],
   user?: Prisma.UserGetPayload<{}> | null
 ): Invoice {
@@ -38,10 +39,27 @@ function transformInvoice(
       amount: item.quantity * item.price
     })),
     customerName: user?.name || '',
-    customerAddress: '',
+    customerAddress: order.adress,
     date: invoice.date.toISOString(),
     createdAt: invoice.createdAt.toISOString(),
     updatedAt: invoice.updatedAt.toISOString()
+  }
+}
+
+function transformOrder(order: Prisma.OrderGetPayload<{
+  include: {
+    user: true,
+    orderItems: {
+      include: {
+        product: true
+      }
+    },
+    invoice: true
+  }
+}>) {
+  return {
+    ...order,
+    address: order.adress // Map adress to address for type compatibility
   }
 }
 
@@ -65,7 +83,7 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
 
   // Получаем данные заказа
   const order = await getOrder(orderId)
-  
+
   if (!order) {
     return <div className="container mx-auto p-4">Заказ не найден</div>
   }
@@ -89,18 +107,18 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
 
   // Вычисляем общую сумму
   const totalAmount = order.orderItems.reduce(
-    (sum, item) => sum + (item.quantity * item.price), 
+    (sum, item) => sum + (item.quantity * item.price),
     0
   )
 
   // Форматируем дату
-  const formatDate = (date: Date) => 
+  const formatDate = (date: Date) =>
     new Date(date).toLocaleDateString('ru-RU')
 
   return (
     <div className="container mx-auto p-4 space-y-6">
       <h1 className="text-2xl font-bold">Заказ #{order.id.slice(0, 8)}</h1>
-      
+
       {/* Секция с деталями заказа */}
       <section className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">Детали заказа</h2>
@@ -136,7 +154,8 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Товарная накладная</h2>
             <DownloadInvoiceWrapper 
-              invoice={transformInvoice(invoice, order.orderItems, order.user)} 
+              invoice={transformInvoice(invoice, order, order.orderItems, order.user)}
+              order={transformOrder(order)}
             />
           </div>
           
