@@ -1,15 +1,13 @@
 import prisma from "../../../lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request,
+  { params }: { params: { orderId: string } }
 ) {
   try {
-    const { id: orderId } = params;
-    
-    const result = await prisma.order.findUnique({
-      where: { id: orderId },
+    const order = await prisma.order.findUnique({
+      where: { id: params.orderId },
       include: {
         invoice: true,
         user: true,
@@ -21,17 +19,18 @@ export async function GET(
       }
     });
 
-    if (!result) {
+    if (!order) {
       return NextResponse.json(
         { message: "Order not found" },
         { status: 404 }
       );
     }
 
-    return NextResponse.json(result, { status: 200 });
+    return NextResponse.json(order, { status: 200 });
   } catch (error) {
+    console.error("Error fetching order:", error);
     return NextResponse.json(
-      { message: "Error while searching for order", error: error instanceof Error ? error.message : "Unknown error" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
