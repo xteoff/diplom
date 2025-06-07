@@ -1,5 +1,5 @@
+'use client'
 import { type Invoice } from '../components/InvoiceDocument'
-import prisma from '../../lib/prisma'
 import { generateInvoice } from '../../actions/generateInvoice'
 import { Prisma } from '@/generated/prisma'
 import DownloadInvoiceWrapper from '../../../components/client/DownloadInvoiceWrapper'
