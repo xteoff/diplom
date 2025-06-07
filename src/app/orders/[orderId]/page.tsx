@@ -4,29 +4,47 @@ import { generateInvoice } from '../../actions/generateInvoice'
 import { Prisma } from '@/generated/prisma'
 import DownloadInvoiceWrapper from '../../../components/client/DownloadInvoiceWrapper'
 import { validate as isUUID } from 'uuid'
+import { getOrder } from "../actions"
+import { useRouter } from "next/navigation";
 
 export async function generateStaticParams() {
   return []
 }
 
-async function getOrder(orderId: string) {
-  return await prisma.order.findUnique({
-    where: { id: orderId },
-    include: {
-      invoice: true,
-      user: true,
-      orderItems: {
-        include: {
-          product: true
+interface OrderItemWithProduct extends Prisma.OrderItemGetPayload<{
+  include: { product: true }
+}> {}
+
+interface OrderWithRelations extends Prisma.OrderGetPayload<{
+  include: {
+    user: true,
+    orderItems: {
+      include: {
+        product: true
+      }
+    },
+    invoice: true
+  }
+}> {}
+
+interface InvoiceWithOrder extends Prisma.InvoiceGetPayload<{
+  include: {
+    order: {
+      include: {
+        user: true,
+        orderItems: {
+          include: {
+            product: true
+          }
         }
       }
     }
-  })
-}
+  }
+}> {}
 
 function transformInvoice(
   invoice: Prisma.InvoiceGetPayload<{}>,
-  orderItems: Prisma.OrderItemGetPayload<{ include: { product: true } }>[],
+  orderItems: OrderItemWithProduct[],
   customerName: string,
   customerAddress: string
 ): Invoice {
@@ -46,24 +64,14 @@ function transformInvoice(
   }
 }
 
-function transformOrder(order: Prisma.OrderGetPayload<{
-  include: {
-    user: true,
-    orderItems: {
-      include: {
-        product: true
-      }
-    },
-    invoice: true
-  }
-}>) {
+function transformOrder(order: OrderWithRelations) {
   return {
     ...order,
     address: order.adress // Map adress to address for type compatibility
   }
 }
 
-function getStatusText(status: number) {
+function getStatusText(status: number): string {
   switch(status) {
     case 0: return "Новый заказ"
     case 1: return "Заказ в доставке"
@@ -72,8 +80,16 @@ function getStatusText(status: number) {
   }
 }
 
-export default async function OrderPage({ params }: { params: Promise<{ orderId: string }> }) {
-  // Ожидаем params перед использованием
+interface OrderPageParams {
+  orderId: string
+}
+
+interface OrderPageProps {
+  params: Promise<OrderPageParams>
+}
+
+export default async function OrderPage({ params }: OrderPageProps) {
+  const router = useRouter();
   const { orderId } = await params
 
   // Валидация UUID
@@ -107,12 +123,12 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
 
   // Вычисляем общую сумму
   const totalAmount = order.orderItems.reduce(
-    (sum, item) => sum + (item.quantity * item.price),
+    (sum: number, item: OrderItemWithProduct) => sum + (item.quantity * item.price),
     0
   )
 
   // Форматируем дату
-  const formatDate = (date: Date) =>
+  const formatDate = (date: Date): string =>
     new Date(date).toLocaleDateString('ru-RU')
 
   return (
@@ -137,7 +153,7 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
         {/* Список товаров */}
         <h3 className="text-lg font-semibold mt-6 mb-2">Товары:</h3>
         <ul className="space-y-2">
-          {order.orderItems.map((item) => (
+          {order.orderItems.map((item: OrderItemWithProduct) => (
             <li key={item.id} className="flex justify-between">
               <span>{item.product.name}</span>
               <span>
