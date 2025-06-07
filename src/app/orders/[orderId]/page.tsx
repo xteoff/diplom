@@ -26,9 +26,9 @@ async function getOrder(orderId: string) {
 
 function transformInvoice(
   invoice: Prisma.InvoiceGetPayload<{}>,
-  order: Prisma.OrderGetPayload<{}>,
   orderItems: Prisma.OrderItemGetPayload<{ include: { product: true } }>[],
-  user?: Prisma.UserGetPayload<{}> | null
+  customerName: string,
+  customerAddress: string
 ): Invoice {
   return {
     ...invoice,
@@ -38,8 +38,8 @@ function transformInvoice(
       price: item.price,
       amount: item.quantity * item.price
     })),
-    customerName: user?.name || '',
-    customerAddress: order.adress,
+    customerName,
+    customerAddress,
     date: invoice.date.toISOString(),
     createdAt: invoice.createdAt.toISOString(),
     updatedAt: invoice.updatedAt.toISOString()
@@ -154,7 +154,12 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Товарная накладная</h2>
             <DownloadInvoiceWrapper 
-              invoice={transformInvoice(invoice, order, order.orderItems, order.user)}
+              invoice={transformInvoice(
+                invoice, 
+                order.orderItems, 
+                order.user?.name || '', 
+                order.adress || ''
+              )}
               order={transformOrder(order)}
             />
           </div>
