@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <AngelsPromo/>
       <MascaraPromo/>
-      <SliderAng/>
+      {/* <SliderAng/> */}
       <LoyalPromo/>
       <GalleryCollections/>
     </>

@@ -38,8 +38,21 @@ export default function RegistrationForm() {
   const RegistrationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Слишком короткое!")
-      .max(16, "Слишком длинное!")
-      .required("Это обязательное поле"),
+      .max(60, "Слишком длинное!")
+      .required("Это обязательное поле")
+      .matches(
+        /^[А-ЯЁа-яё]+\s+[А-ЯЁа-яё]+\s+[А-ЯЁа-яё]+$/,
+        "Введите полное имя в формате: Фамилия Имя Отчество"
+      )
+      .test(
+        'three-words',
+        'Введите полное имя в формате: Фамилия Имя Отчество',
+        (value) => {
+          if (!value) return false;
+          const words = value.trim().split(/\s+/);
+          return words.length === 3 && words.every(word => word.length >= 2);
+        }
+      ),
     email: Yup.string()
       .email("Поле должно содержать Email")
       .required("Это обязательное поле"),
@@ -70,9 +83,9 @@ export default function RegistrationForm() {
             РЕГИСТРАЦИЯ
         </h1>
       <InputBase
-        label="Имя"
+        label="Полное имя"
         required
-        placeholder="Введите ваше имя"
+        placeholder="Фамилия Имя Отчество"
         name="name"
         autoComplete="name"
         onChange={formik.handleChange}

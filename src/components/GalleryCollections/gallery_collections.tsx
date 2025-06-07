@@ -7,21 +7,21 @@ function GalleryCollections(){
                 Коллекции
             </div>
             <div className="flex flex-col lg:flex-row gap-3"> 
-                <Link href="/collections">
+                <Link href="/shop">
                     <div className="relative group">
                         <img src="/Coll1.svg" className="h-fit rounded-2xl opacity-100 group-hover:opacity-0 transition-all" alt="" />
                         <img src="/Coll1_dop.svg" className="h-fit rounded-2xl object-cover absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-all" alt="" />
                     </div>
                 </Link>
                 
-                <Link href="/collections">
+                <Link href="/shop">
                     <div className="relative group">
                         <img src="/Coll2.svg" className="h-fit rounded-2xl opacity-100 group-hover:opacity-0 transition-all" alt="" />
                         <img src="/Coll2_dop.svg" className="h-fit rounded-2xl object-cover absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-all" alt="" />
                     </div>
                 </Link>
                 
-                <Link href="/collections">
+                <Link href="/shop">
                     <div className="relative group">
                         <img src="/Coll3.svg" className="h-fit rounded-2xl opacity-100 group-hover:opacity-0 transition-all" alt="" />
                         <img src="/Coll3_dop.svg" className="h-fit rounded-2xl object-cover absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-all" alt="" />
