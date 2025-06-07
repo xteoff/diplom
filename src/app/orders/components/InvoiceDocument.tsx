@@ -180,37 +180,72 @@ export interface Invoice {
   updatedAt: string
   customerName: string
   customerAddress: string
-  items: {
-    name: string
-    quantity: number
-    price: number
-    amount: number
-  }[]
+  items: InvoiceItem[]
   orderId: string
 }
 
-export function InvoiceDocument({ invoice, order }: { invoice: Invoice; order: Order }) {
-  // Ensure date is a Date object
-  const invoiceDate = typeof invoice.date === 'string' ? new Date(invoice.date) : invoice.date
+interface InvoiceDocumentProps {
+  invoice: Invoice
+  order: Order
+}
 
-  // Format items safely
+export function InvoiceDocument({ invoice, order }: InvoiceDocumentProps) {
+  // Safe date parsing
+  const parseDate = (dateInput: string | Date | null | undefined): Date => {
+    try {
+      if (!dateInput) return new Date()
+      return typeof dateInput === 'string' ? new Date(dateInput) : dateInput
+    } catch (error) {
+      console.error('Error parsing date:', error)
+      return new Date()
+    }
+  }
+
+  const invoiceDate = parseDate(invoice.date)
+  
+  // Safe items array
   const items = Array.isArray(invoice.items) ? invoice.items : []
 
   // Format date in Russian format
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit', 
-      year: 'numeric'
-    })
+  const formatDate = (date: Date): string => {
+    try {
+      return date.toLocaleDateString('ru-RU', {
+        day: '2-digit',
+        month: '2-digit', 
+        year: 'numeric'
+      })
+    } catch (error) {
+      console.error('Error formatting date:', error)
+      return new Date().toLocaleDateString('ru-RU')
+    }
   }
 
   // Format currency
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ru-RU', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount) + ' руб.'
+  const formatCurrency = (amount: number | null | undefined): string => {
+    try {
+      const numAmount = Number(amount) || 0
+      return new Intl.NumberFormat('ru-RU', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(numAmount) + ' руб.'
+    } catch (error) {
+      console.error('Error formatting currency:', error)
+      return '0.00 руб.'
+    }
+  }
+
+  // Format number safely
+  const formatNumber = (num: number | null | undefined): string => {
+    try {
+      const numValue = Number(num) || 0
+      return new Intl.NumberFormat('ru-RU', { 
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2 
+      }).format(numValue)
+    } catch (error) {
+      console.error('Error formatting number:', error)
+      return '0.00'
+    }
   }
 
   return (
@@ -218,7 +253,9 @@ export function InvoiceDocument({ invoice, order }: { invoice: Invoice; order: O
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <Text style={styles.title}>Товарная накладная</Text>
-          <Text style={styles.subtitle}>№ {invoice.invoiceNumber} от {formatDate(invoiceDate)}</Text>
+          <Text style={styles.subtitle}>
+            № {invoice.invoiceNumber || 'N/A'} от {formatDate(invoiceDate)}
+          </Text>
         </View>
 
         <View style={styles.section}>
@@ -240,8 +277,12 @@ export function InvoiceDocument({ invoice, order }: { invoice: Invoice; order: O
             <View style={styles.col}>
               <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Покупатель:</Text>
               <View style={styles.companyInfo}>
-                <Text style={{ fontWeight: 'bold' }}>{invoice.customerName || 'Физическое лицо'}</Text>
-                <Text>{order.address || 'Адрес скрыт с целью конфиденциальности'}</Text>
+                <Text style={{ fontWeight: 'bold' }}>
+                  {invoice.customerName || 'Физическое лицо'}
+                </Text>
+                <Text>
+                  {order.address || invoice.customerAddress || 'Адрес скрыт с целью конфиденциальности'}
+                </Text>
               </View>
             </View>
           </View>
@@ -258,26 +299,34 @@ export function InvoiceDocument({ invoice, order }: { invoice: Invoice; order: O
               <Text style={[styles.tableCell, styles.tableColAmount, { borderRightWidth: 0 }]}>Сумма, руб.</Text>
             </View>
 
-            {items.map((item, index) => (
-              <View key={index} style={styles.tableRow}>
-                <Text style={[styles.tableCell, styles.tableColNum]}>{index + 1}</Text>
-                <Text style={[styles.tableCell, styles.tableColName]}>{item.name}</Text>
-                <Text style={[styles.tableCell, styles.tableColQty]}>{item.quantity}</Text>
-                <Text style={[styles.tableCell, styles.tableColPrice]}>
-                  {new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2 }).format(item.price)}
-                </Text>
-                <Text style={[styles.tableCell, styles.tableColAmount, { borderRightWidth: 0 }]}>
-                  {new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2 }).format(item.amount)}
+            {items.length > 0 ? (
+              items.map((item, index) => (
+                <View key={index} style={styles.tableRow}>
+                  <Text style={[styles.tableCell, styles.tableColNum]}>{index + 1}</Text>
+                  <Text style={[styles.tableCell, styles.tableColName]}>{item.name || 'Unknown Item'}</Text>
+                  <Text style={[styles.tableCell, styles.tableColQty]}>{item.quantity || 0}</Text>
+                  <Text style={[styles.tableCell, styles.tableColPrice]}>
+                    {formatNumber(item.price)}
+                  </Text>
+                  <Text style={[styles.tableCell, styles.tableColAmount, { borderRightWidth: 0 }]}>
+                    {formatNumber(item.amount)}
+                  </Text>
+                </View>
+              ))
+            ) : (
+              <View style={styles.tableRow}>
+                <Text style={[styles.tableCell, { width: '100%', borderRightWidth: 0 }]}>
+                  Товары не найдены
                 </Text>
               </View>
-            ))}
+            )}
 
             <View style={[styles.tableRow, styles.totalRow, { borderBottomWidth: 0 }]}>
               <Text style={[styles.tableCell, { width: '80%', textAlign: 'right', borderRightWidth: 0 }]}>
                 ИТОГО:
               </Text>
               <Text style={[styles.tableCell, { width: '20%', borderRightWidth: 0 }]}>
-                {new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2 }).format(invoice.totalAmount)}
+                {formatNumber(invoice.totalAmount)}
               </Text>
             </View>
           </View>
@@ -323,11 +372,10 @@ export function InvoiceDocument({ invoice, order }: { invoice: Invoice; order: O
 
         <View style={styles.footer}>
           <Text>
-            Документ создан {formatDate(new Date())} | Заказ #{invoice.orderId}
+            Документ создан {formatDate(new Date())} | Заказ #{invoice.orderId || 'N/A'}
           </Text>
         </View>
       </Page>
     </Document>
   )
 }
-  

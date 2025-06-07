@@ -133,7 +133,7 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
             <p><span className="font-medium">Адрес:</span> {order.adress || 'Не указано'}</p>
           </div>
         </div>
-        
+
         {/* Список товаров */}
         <h3 className="text-lg font-semibold mt-6 mb-2">Товары:</h3>
         <ul className="space-y-2">
@@ -147,7 +147,7 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
           ))}
         </ul>
       </section>
-      
+
       {/* Секция с накладной */}
       {invoice && (
         <section className="bg-white p-6 rounded-lg shadow-md">
@@ -163,7 +163,7 @@ export default async function OrderPage({ params }: { params: Promise<{ orderId:
               order={transformOrder(order)}
             />
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <p><span className="font-medium">Номер накладной:</span> {invoice.invoiceNumber}</p>
             <p><span className="font-medium">Дата накладной:</span> {formatDate(invoice.date)}</p>
