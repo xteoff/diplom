@@ -1,13 +1,18 @@
-import prisma from "../../../lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server'
+import prisma from '../../../lib/prisma'
 
-export async function GET(
-  request: Request,
-  { params }: { params: { orderId: string } }
-) {
+interface Context {
+  params: {
+    orderId: string
+  }
+}
+
+export async function GET(request: NextRequest, context: Context) {
   try {
+    const { orderId } = context.params
+
     const order = await prisma.order.findUnique({
-      where: { id: params.orderId },
+      where: { id: orderId },
       include: {
         invoice: true,
         user: true,
@@ -17,22 +22,21 @@ export async function GET(
           }
         }
       }
-    });
+    })
 
-    
     if (!order) {
       return NextResponse.json(
-        { message: "Order not found" },
+        { error: 'Order not found' },
         { status: 404 }
-      );
+      )
     }
 
-    return NextResponse.json(order, { status: 200 });
+    return NextResponse.json(order)
   } catch (error) {
-    console.error("Error fetching order:", error);
+    console.error('[ORDER_GET_ERROR]', error)
     return NextResponse.json(
-      { message: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
-    );
+    )
   }
 }
