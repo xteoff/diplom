@@ -1,18 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest } from 'next/server'
 import prisma from '../../../lib/prisma'
 
-interface Context {
-  params: {
-    orderId: string
-  }
-}
-
-export async function GET(request: NextRequest, context: Context) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { orderId: string } }
+) {
   try {
-    const { orderId } = context.params
-
     const order = await prisma.order.findUnique({
-      where: { id: orderId },
+      where: { id: params.orderId },
       include: {
         invoice: true,
         user: true,
@@ -25,17 +20,17 @@ export async function GET(request: NextRequest, context: Context) {
     })
 
     if (!order) {
-      return NextResponse.json(
-        { error: 'Order not found' },
+      return new Response(
+        JSON.stringify({ error: 'Order not found' }),
         { status: 404 }
       )
     }
 
-    return NextResponse.json(order)
+    return new Response(JSON.stringify(order))
   } catch (error) {
-    console.error('[ORDER_GET_ERROR]', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
+    console.error('[ORDER_API_ERROR]', error)
+    return new Response(
+      JSON.stringify({ error: 'Internal server error' }),
       { status: 500 }
     )
   }
