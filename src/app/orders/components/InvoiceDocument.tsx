@@ -166,6 +166,11 @@ export interface InvoiceItem {
   amount: number
 }
 
+export interface Order {
+  id: string
+  address: string
+}
+
 export interface Invoice {
   id: string
   invoiceNumber: string
@@ -184,7 +189,7 @@ export interface Invoice {
   orderId: string
 }
 
-export function InvoiceDocument({ invoice }: { invoice: Invoice }) {
+export function InvoiceDocument({ invoice, order }: { invoice: Invoice; order: Order }) {
   // Ensure date is a Date object
   const invoiceDate = typeof invoice.date === 'string' ? new Date(invoice.date) : invoice.date
 
@@ -236,7 +241,7 @@ export function InvoiceDocument({ invoice }: { invoice: Invoice }) {
               <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Покупатель:</Text>
               <View style={styles.companyInfo}>
                 <Text style={{ fontWeight: 'bold' }}>{invoice.customerName || 'Физическое лицо'}</Text>
-                <Text>{invoice.customerAddress || 'Адрес скрыт с целью конфиденциальности'}</Text>
+                <Text>{order.address || 'Адрес скрыт с целью конфиденциальности'}</Text>
               </View>
             </View>
           </View>
@@ -325,3 +330,4 @@ export function InvoiceDocument({ invoice }: { invoice: Invoice }) {
     </Document>
   )
 }
+  

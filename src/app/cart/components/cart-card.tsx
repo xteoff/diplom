@@ -1,7 +1,6 @@
 "use client";
 import { formatter } from "../../../app/lib/formatter";
 import { addProduct, CartProduct, removeProduct } from "../../../store/slices/cart";
-import { Product } from "@/generated/prisma";
 import Image from "next/image";
 import { ButtonHTMLAttributes } from "react";
 import { useDispatch } from "react-redux";
