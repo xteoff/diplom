@@ -4,7 +4,7 @@ function GalleryCollections(){
     return(
         <div className="flex flex-col justify-center items-center pb-8 px-20 gap-5">
             <div className="text-center font-extralight text-4xl pb-5">
-                Коллекции
+                Другие коллекции
             </div>
             <div className="flex flex-col lg:flex-row gap-3"> 
                 <Link href="/shop">
