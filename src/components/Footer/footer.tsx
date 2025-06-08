@@ -26,15 +26,15 @@ const links = [
 
 const sogl = [
   {
-    href: "/zatrolen_loh",
+    href: "/law/confidentialy",
     text: "Политика конфиденциальности",
   },
   {
-    href: "/zatrolen_loh",
+    href: "/law/conditions",
     text: "Условия",
   },
   {
-    href: "/zatrolen_loh",
+    href: "/law/cookies",
     text: "Политика использования файлов cookie",
   },
 ];
