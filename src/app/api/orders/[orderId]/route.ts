@@ -37,3 +37,58 @@ export async function GET(
     )
   }
 }
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params
+    const body = await request.json()
+    
+    if (!id) {
+      return new Response(
+        JSON.stringify({ error: "Order ID is required" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
+
+    const { status } = body
+
+    if (typeof status !== 'number') {
+      return new Response(
+        JSON.stringify({ error: "Valid status is required" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    }
+
+    const updatedOrder = await prisma.order.update({
+      where: {
+        id: id,
+      },
+      data: {
+        status: status,
+      },
+    })
+
+    return new Response(JSON.stringify(updatedOrder), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    })
+  } catch (error) {
+    console.error('[ORDER_UPDATE_ERROR]', error)
+    return new Response(
+      JSON.stringify({ error: "Failed to update order" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+  }
+}

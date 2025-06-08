@@ -5,10 +5,6 @@ import DownloadInvoiceWrapper from '../../../components/client/DownloadInvoiceWr
 import { validate as isUUID } from 'uuid'
 import { getOrder } from "../actions"
 
-// export async function generateStaticParams() {
-//   return []
-// }
-
 interface OrderItemWithProduct extends Prisma.OrderItemGetPayload<{
   include: { product: true }
 }> {}

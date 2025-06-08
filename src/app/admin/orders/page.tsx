@@ -1,8 +1,13 @@
 import prisma from '../../lib/prisma'
 import Link from 'next/link'
+import OrderStatusButtons from './OrderStatusButtons'
 
-export default async function AdminProducts() {
-  const order = await prisma.order.findMany({})
+export default async function AdminOrders() {
+  const orders = await prisma.order.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
 
   return (
     <div className='flex flex-col gap-6'>
@@ -10,7 +15,7 @@ export default async function AdminProducts() {
         <h1 className="text-2xl font-bold text-center text-black">
           Заказы
         </h1>
-        <Link href="/dashboard" className="ml-auto block  cursor-pointer">
+        <Link href="/dashboard" className="ml-auto block cursor-pointer">
           <img src="/close.svg" width={32} height={32} alt="Close" />
         </Link>
       </div>
@@ -33,7 +38,7 @@ export default async function AdminProducts() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {order.map((order) => (
+            {orders.map((order) => (
               <tr key={order.id}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {order.id}
@@ -45,7 +50,7 @@ export default async function AdminProducts() {
                   {order.adress}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {order.status}
+                  <OrderStatusButtons orderId={order.id} status={order.status} />
                 </td>
               </tr>
             ))}
