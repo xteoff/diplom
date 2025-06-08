@@ -2,9 +2,6 @@ export async function getOrder(orderId: string) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${orderId}`, {
       method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
     if (!response.ok) {
