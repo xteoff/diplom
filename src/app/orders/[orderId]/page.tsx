@@ -56,9 +56,9 @@ function transformInvoice(
     })),
     customerName,
     customerAddress,
-    date: invoice.date.toISOString(),
-    createdAt: invoice.createdAt.toISOString(),
-    updatedAt: invoice.updatedAt.toISOString()
+    date: invoice.date.toString(),
+    createdAt: invoice.createdAt.toString(),
+    updatedAt: invoice.updatedAt.toString()
   }
 }
 

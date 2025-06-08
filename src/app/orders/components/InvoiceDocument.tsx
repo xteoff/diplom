@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   companyInfo: {
-    backgroundColor: '#f8f9fa',
     padding: 10,
     borderRadius: 3,
     marginBottom: 5,

@@ -38,10 +38,10 @@ export default async function AdminProducts() {
                 Коллекция
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Описание
+                Цена
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Цена
+                Ссылка на фото
               </th>
             </tr>
           </thead>
@@ -58,10 +58,10 @@ export default async function AdminProducts() {
                   {product.collectionID}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {product.description}
+                  {product.price}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {product.price}
+                  {product.image}
                 </td>
               </tr>
             ))}
