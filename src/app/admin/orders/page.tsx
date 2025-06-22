@@ -6,6 +6,13 @@ export default async function AdminOrders() {
   const orders = await prisma.order.findMany({
     orderBy: {
       createdAt: 'desc'
+    },
+    include: {
+      user: {
+        select: {
+          name: true
+        }
+      }
     }
   })
 
@@ -44,7 +51,7 @@ export default async function AdminOrders() {
                   {order.id}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {order.userID || '-'}
+                  {order.user?.name || '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {order.adress}
