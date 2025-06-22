@@ -348,10 +348,10 @@ export function InvoiceDocument({ invoice, order }: InvoiceDocumentProps) {
 
           <View style={styles.signatureRow}>
             <View style={styles.signature}>
-              <Text style={{ marginBottom: 10, fontWeight: 'bold' }}>Поставщик:</Text>
+              <Text style={{ marginBottom: 10, fontWeight: 'bold' }}>Продавец:</Text>
               <View style={styles.signatureLine}></View>
               <Text style={styles.signatureLabel}>
-                Директор _________________ / И.О. Фамилия /
+                Директор _________________ / Иван Иванович Баштыркин /
               </Text>
             </View>
 
