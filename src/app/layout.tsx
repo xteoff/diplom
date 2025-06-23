@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import Footer from "@/components/Footer/footer";
 import { Providers } from './providers/providers'
 import { cookies } from 'next/headers'
+import BackToTopButton from "@/components/BackToTop/BackToTopButton"
 
 const gothampro = localFont({
   src: [
@@ -45,6 +46,7 @@ export default async function RootLayout({
         <Header/>
           <Providers cookies={(await cookieStore).getAll()}>
             {children}
+            <BackToTopButton />
           </Providers>
         <Footer/>
       </body>
